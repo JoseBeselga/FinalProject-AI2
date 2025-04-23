@@ -1,0 +1,62 @@
+/* Reset básico e fonte */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #141414;
+    color: #eee;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  /* Navbar */
+  .navbar {
+    background: #141414;
+    border-bottom: 1px solid #333;
+  }
+  .navbar-brand {
+    color: #e50914 !important;
+    font-weight: 800;
+    font-size: 1.5rem;
+  }
+  .nav-link,
+  .btn {
+    color: #eee !important;
+  }
+  
+  /* Grid de cartões */
+  .movie-grid {
+    padding: 2rem;
+  }
+  .movie-card {
+    background: #222;
+    border: none;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    transition: transform 0.2s;
+  }
+  .movie-card:hover {
+    transform: translateY(-5px);
+  }
+  .movie-card img {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+  }
+  .movie-info {
+    padding: 0.75rem;
+  }
+  .movie-title {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  .movie-genre {
+    font-size: 0.9rem;
+    color: #bbb;
+  }
+  .movie-actions {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+  }

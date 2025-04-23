@@ -2,61 +2,47 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api, { deleteFilme } from '../services/api';
 
-function FilmList() {
+export default function FilmList() {
   const [filmes, setFilmes] = useState([]);
   const [generos, setGeneros] = useState({});
 
   useEffect(() => {
-    async function fetchData() {
-      const [filmesRes, generosRes] = await Promise.all([
+    async function load() {
+      const [fRes, gRes] = await Promise.all([
         api.get('/filmes/list'),
         api.get('/generos/list')
       ]);
-      setFilmes(filmesRes.data);
-
+      setFilmes(fRes.data);
       const map = {};
-      generosRes.data.forEach(g => { map[g.id] = g.descricao; });
+      gRes.data.forEach(g => map[g.id] = g.descricao);
       setGeneros(map);
     }
-    fetchData();
+    load();
   }, []);
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Deseja realmente excluir este filme?')) return;
+    if (!window.confirm('Confirmar exclusão?')) return;
     await deleteFilme(id);
-    setFilmes(filmes.filter(f => f.id !== id));
+    setFilmes(prev => prev.filter(f => f.id !== id));
   };
 
   return (
-    <div className="container mt-4">
-      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-        {filmes.map(filme => (
-          <div className="col" key={filme.id}>
-            <div className="card movie-card h-100 text-white">
-              <img
-                src={filme.foto || '/imagem-filme.jpg'}
-                className="card-img-top"
-                alt={filme.titulo}
-              />
-              <div className="card-body d-flex flex-column">
-                <h5 className="movie-title flex-grow-1">{filme.titulo}</h5>
-                <div className="d-flex justify-content-between">
-                  <Link
-                    className="btn btn-sm btn-warning"
-                    to={`/edit/${filme.id}`}
-                  >Editar</Link>
-                  <button
-                    className="btn btn-sm btn-danger"
-                    onClick={() => handleDelete(filme.id)}
-                  >Excluir</button>
-                </div>
+    <div className="movie-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+      {filmes.map(f => (
+        <div className="col" key={f.id}>
+          <div className="card movie-card">
+            <img src={f.foto || '/imagem-filme.jpg'} alt={f.titulo} />
+            <div className="movie-info">
+              <h5 className="movie-title">{f.titulo}</h5>
+              <p className="movie-genre">{generos[f.genero]}</p>
+              <div className="movie-actions">
+                <Link className="btn btn-sm btn-outline-warning" to={`/edit/${f.id}`}>Editar</Link>
+                <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(f.id)}>Excluir</button>
               </div>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 }
-
-export default FilmList;
