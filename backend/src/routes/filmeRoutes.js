@@ -10,7 +10,7 @@ router.get('/get/:id', filmeController.filme_detail);
 router.post('/create', filmeController.filme_create);
 // Rota para atualizar um filme pelo ID
 router.put('/update/:id', filmeController.filme_update);
-// Rota para deletar um filme (opcional)
-router.delete('/delete/:id', filmeController.filme_delete);
+// Rota para deletar um filme 
+router.delete('/filmes/delete/:id', filmeController.delete);
 
 module.exports = router;

@@ -5,22 +5,23 @@ import api from '../services/api';
 function FilmEdit() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [filme, setFilme] = useState({
-    titulo: '',
-    descricao: '',
-    foto: '',
-    genero: ''
-  });
+  const [filme, setFilme] = useState({ titulo: '', descricao: '', foto: '', genero: '' });
+  const [listaGeneros, setListaGeneros] = useState([]);
 
   useEffect(() => {
-    (async () => {
+    async function fetchData() {
       try {
-        const response = await api.get(`/filmes/get/${id}`);
-        setFilme(response.data);
+        const [filmeRes, generosRes] = await Promise.all([
+          api.get(`/filmes/get/${id}`),
+          api.get('/generos/list')
+        ]);
+        setFilme(filmeRes.data);
+        setListaGeneros(generosRes.data);
       } catch (error) {
-        console.error("Erro ao buscar dados do filme:", error);
+        console.error('Erro ao buscar dados:', error);
       }
-    })();
+    }
+    fetchData();
   }, [id]);
 
   const handleChange = e => {
@@ -33,32 +34,63 @@ function FilmEdit() {
       await api.put(`/filmes/update/${id}`, filme);
       navigate('/');
     } catch (error) {
-      console.error("Erro ao atualizar filme:", error);
+      console.error('Erro ao atualizar filme:', error);
     }
   };
 
   return (
-    <div>
+    <div className="container mt-4">
       <h1>Editar Filme</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Título:</label><br/>
-          <input type="text" name="titulo" value={filme.titulo} onChange={handleChange} required />
+      <form onSubmit={handleSubmit} className="row g-3">
+        <div className="col-md-6">
+          <label className="form-label">Título:</label>
+          <input
+            type="text"
+            className="form-control"
+            name="titulo"
+            value={filme.titulo}
+            onChange={handleChange}
+            required
+          />
         </div>
-        <div>
-          <label>Descrição:</label><br/>
-          <textarea name="descricao" value={filme.descricao} onChange={handleChange} required />
+        <div className="col-md-12">
+          <label className="form-label">Descrição:</label>
+          <textarea
+            className="form-control"
+            name="descricao"
+            value={filme.descricao}
+            onChange={handleChange}
+            required
+          />
         </div>
-        <div>
-          <label>Foto (URL ou nome do arquivo):</label><br/>
-          <input type="text" name="foto" value={filme.foto} onChange={handleChange} />
+        <div className="col-md-6">
+          <label className="form-label">Foto (URL):</label>
+          <input
+            type="text"
+            className="form-control"
+            name="foto"
+            value={filme.foto}
+            onChange={handleChange}
+          />
         </div>
-        <div>
-          <label>Gênero (ID):</label><br/>
-          <input type="number" name="genero" value={filme.genero} onChange={handleChange} required />
+        <div className="col-md-6">
+          <label className="form-label">Gênero:</label>
+          <select
+            className="form-select"
+            name="genero"
+            value={filme.genero}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Selecione</option>
+            {listaGeneros.map(g => (
+              <option key={g.id} value={g.id}>{g.descricao}</option>
+            ))}
+          </select>
         </div>
-        <br/>
-        <button type="submit">Atualizar Filme</button>
+        <div className="col-12">
+          <button type="submit" className="btn btn-primary">Atualizar Filme</button>
+        </div>
       </form>
     </div>
   );

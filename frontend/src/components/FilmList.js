@@ -1,59 +1,60 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../services/api';
+import api, { deleteFilme } from '../services/api';
 
 function FilmList() {
   const [filmes, setFilmes] = useState([]);
+  const [generos, setGeneros] = useState({});
 
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await api.get('/filmes/list');
-        setFilmes(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar filmes:", error);
-      }
-    })();
+    async function fetchData() {
+      const [filmesRes, generosRes] = await Promise.all([
+        api.get('/filmes/list'),
+        api.get('/generos/list')
+      ]);
+      setFilmes(filmesRes.data);
+
+      const map = {};
+      generosRes.data.forEach(g => { map[g.id] = g.descricao; });
+      setGeneros(map);
+    }
+    fetchData();
   }, []);
 
+  const handleDelete = async (id) => {
+    if (!window.confirm('Deseja realmente excluir este filme?')) return;
+    await deleteFilme(id);
+    setFilmes(filmes.filter(f => f.id !== id));
+  };
+
   return (
-    <div>
-      <h1>Listagem de Filmes</h1>
-      <table border="1" cellPadding="5">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Título</th>
-            <th>Descrição</th>
-            <th>Foto</th>
-            <th>Gênero (ID)</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filmes.map(filme => (
-            <tr key={filme.id}>
-              <td>{filme.id}</td>
-              <td>{filme.titulo}</td>
-              <td>{filme.descricao}</td>
-              <td>
-                <img 
-                  src={filme.foto || 'imagem-filme.jpg'} 
-                  alt={filme.titulo} 
-                  width="60"
-                  style={{ objectFit: 'cover' }}
-                />
-              </td>
-              <td>{filme.genero}</td>
-              <td>
-                <Link to={`/edit/${filme.id}`}>Editar</Link>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <br/>
-      <Link to="/create">Inserir Novo Filme</Link>
+    <div className="container mt-4">
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+        {filmes.map(filme => (
+          <div className="col" key={filme.id}>
+            <div className="card movie-card h-100 text-white">
+              <img
+                src={filme.foto || '/imagem-filme.jpg'}
+                className="card-img-top"
+                alt={filme.titulo}
+              />
+              <div className="card-body d-flex flex-column">
+                <h5 className="movie-title flex-grow-1">{filme.titulo}</h5>
+                <div className="d-flex justify-content-between">
+                  <Link
+                    className="btn btn-sm btn-warning"
+                    to={`/edit/${filme.id}`}
+                  >Editar</Link>
+                  <button
+                    className="btn btn-sm btn-danger"
+                    onClick={() => handleDelete(filme.id)}
+                  >Excluir</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

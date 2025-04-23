@@ -1,0 +1,28 @@
+body {
+    background-color: #141414;
+    color: #ffffff;
+  }
+  .navbar-netflix {
+    background-color: #141414;
+  }
+  .navbar-netflix .navbar-brand {
+    color: #e50914;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  .movie-card {
+    background-color: #222;
+    border: none;
+  }
+  .movie-card .card-img-top {
+    transition: transform 0.3s;
+  }
+  .movie-card .card-img-top:hover {
+    transform: scale(1.1);
+  }
+  .movie-title {
+    color: #e5e5e5;
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 0.5rem;
+  }

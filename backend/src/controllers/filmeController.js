@@ -50,15 +50,17 @@ exports.filme_update = async (req, res) => {
   }
 };
 
-// Remove um filme (opcional, se desejar)
-exports.filme_delete = async (req, res) => {
-  try {
-    const filme = await Filme.findByPk(req.params.id);
-    if (!filme) return res.status(404).json({ error: "Filme não encontrado" });
-    await filme.destroy();
-    res.json({ message: "Filme deletado com sucesso" });
-  } catch (error) {
-    console.error("Erro no filme_delete:", error);
-    res.status(500).json({ error: error.message });
-  }
+// Remove um filme 
+exports.delete = async (req, res) => {
+    const { id } = req.params;
+    try {
+      const filme = await Filme.findByPk(id);
+      if (!filme) {
+        return res.status(404).json({ message: 'Filme não encontrado' });
+      }
+      await filme.destroy();
+      res.status(204).send(); 
+    } catch (error) {
+      res.status(500).json({ message: 'Erro ao excluir o filme', error });
+    }
 };
