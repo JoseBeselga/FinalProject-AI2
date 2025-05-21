@@ -28,10 +28,17 @@ exports.genero_detail = async (req, res) => {
 exports.genero_create = async (req, res) => {
   try {
     const { descricao } = req.body;
+    const generoExistente = await Genero.findOne({ where: { descricao } });
+    if (generoExistente) {
+      return res.status(400).json({ error: "Já existe um gênero com essa descrição" });
+    }
     const novoGenero = await Genero.create({ descricao });
     res.status(201).json(novoGenero);
   } catch (error) {
     console.error("Erro no genero_create:", error);
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      return res.status(400).json({ error: "Já existe um gênero com essa descrição" });
+    }
     res.status(500).json({ error: error.message });
   }
 };

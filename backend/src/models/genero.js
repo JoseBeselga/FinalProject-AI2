@@ -8,10 +8,10 @@ module.exports = (sequelize, DataTypes) => {
       descricao: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       }
     }, {
       tableName: 'generos',
       timestamps: false
     });
   };
-  

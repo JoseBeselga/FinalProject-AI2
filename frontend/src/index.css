@@ -1,62 +1,203 @@
 /* Reset básico e fonte */
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background-color: #141414;
-    color: #eee;
-    font-family: 'Segoe UI', sans-serif;
-  }
-  
-  /* Navbar */
-  .navbar {
-    background: #141414;
-    border-bottom: 1px solid #333;
-  }
-  .navbar-brand {
-    color: #e50914 !important;
-    font-weight: 800;
-    font-size: 1.5rem;
-  }
-  .nav-link,
-  .btn {
-    color: #eee !important;
-  }
-  
-  /* Grid de cartões */
-  .movie-grid {
-    padding: 2rem;
-  }
-  .movie-card {
-    background: #222;
-    border: none;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.7);
-    transition: transform 0.2s;
-  }
-  .movie-card:hover {
-    transform: translateY(-5px);
-  }
+:root {
+  --primary-color: #dc2626;
+  --secondary-color: #991b1b;
+  --accent-color: #ef4444;
+  --background-color: #0f172a;
+  --card-background: #ffffff;
+  --text-color: #f8fafc;
+  --hover-color: #1e293b;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--primary-color);
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.navbar-brand {
+  color: white !important;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.nav-link {
+  color: white !important;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: var(--accent-color) !important;
+}
+
+/* Movie Grid */
+.movie-grid {
+  padding: 2rem 0;
+}
+
+.movie-card {
+  background: var(--card-background);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px var(--shadow-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--hover-color);
+}
+
+.movie-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px var(--shadow-color);
+}
+
+.movie-card img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.movie-card:hover img {
+  transform: scale(1.1);
+}
+
+.movie-info {
+  padding: 1.5rem;
+}
+
+.movie-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.movie-genre {
+  color: var(--text-color);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.movie-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+.btn-outline-danger {
+  border-color: var(--text-color);
+  color: var(--text-color);
+}
+
+.btn-outline-danger:hover {
+  background-color: var(--text-color);
+  color: var(--primary-color);
+}
+
+/* Forms */
+.form-control {
+  background-color: var(--hover-color);
+  border-radius: 0.3rem;
+  padding: 0.75rem;
+  border: 1px solid var(--secondary-color);
+  color: var(--text-color);
+  transition: all 0.2s;
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+  background-color: var(--card-background);
+}
+
+.form-label {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.form-select {
+  background-color: var(--hover-color);
+  border-radius: 0.3rem;
+  padding: 0.75rem;
+  border: 1px solid var(--secondary-color);
+  color: var(--text-color);
+}
+
+.form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+  background-color: var(--card-background);
+}
+
+/* Cards */
+.card {
+  border: none;
+  box-shadow: 0 4px 6px -1px var(--shadow-color);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .movie-card img {
-    height: 200px;
-    object-fit: cover;
-    width: 100%;
+    height: 300px;
   }
-  .movie-info {
-    padding: 0.75rem;
-  }
-  .movie-title {
-    margin: 0;
-    font-size: 1.1rem;
-    font-weight: 600;
-  }
-  .movie-genre {
-    font-size: 0.9rem;
-    color: #bbb;
-  }
-  .movie-actions {
-    margin-top: 0.5rem;
-    display: flex;
-    justify-content: space-between;
-  }
+}
+
+.App {
+  text-align: center;
+}
