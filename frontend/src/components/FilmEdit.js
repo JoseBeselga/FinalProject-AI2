@@ -89,7 +89,7 @@ function FilmEdit() {
           </select>
         </div>
         <div className="col-12">
-          <button type="submit" className="btn btn-primary">Atualizar Filme</button>
+          <button type="submit" className="btn btn-dark">Atualizar Filme</button>
         </div>
       </form>
     </div>

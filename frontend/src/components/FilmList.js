@@ -40,6 +40,9 @@ export default function FilmList() {
               />
               <div className="movie-info">
                 <h5 className="movie-title">{f.titulo}</h5>
+                <p className="movie-description">
+                  {f.descricao ? f.descricao.substring(0, 30) + '...' : 'Sem descrição'}
+                </p>
                 <p className="movie-genre">{generos[f.genero]}</p>
                 <div className="movie-actions">
                   <Link className="btn btn-sm btn-outline-light" to={`/edit/${f.id}`}>

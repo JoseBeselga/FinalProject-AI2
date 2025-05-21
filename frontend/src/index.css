@@ -3,11 +3,15 @@
   --primary-color: #dc2626;
   --secondary-color: #991b1b;
   --accent-color: #ef4444;
-  --background-color: #0f172a;
-  --card-background: #ffffff;
+  --background-color: #000000;
+  --card-background: #1e293b;
   --text-color: #f8fafc;
   --hover-color: #1e293b;
   --shadow-color: rgba(0, 0, 0, 0.3);
+  --form-background: #1e293b;
+  --form-border: #334155;
+  --form-text: #f8fafc;
+  --form-focus: #dc2626;
 }
 
 body {
@@ -87,12 +91,19 @@ body {
 .movie-title {
   font-size: 1.25rem;
   font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: white;
+}
+
+.movie-description {
+  color: white;
+  font-size: 0.9rem;
   margin-bottom: 0.5rem;
-  color: var(--text-color);
+  opacity: 0.9;
 }
 
 .movie-genre {
-  color: var(--text-color);
+  color: white;
   font-size: 0.9rem;
   margin-bottom: 1rem;
   opacity: 0.9;
@@ -112,26 +123,26 @@ body {
 }
 
 .btn-primary {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
+  background-color: black;
+  border-color: black;
   color: white;
 }
 
 .btn-primary:hover {
-  background-color: var(--secondary-color);
-  border-color: var(--secondary-color);
+  background-color: #333;
+  border-color: #333;
   transform: translateY(-1px);
 }
 
 .btn-secondary {
-  background-color: var(--secondary-color);
-  border-color: var(--secondary-color);
+  background-color: black;
+  border-color: black;
   color: white;
 }
 
 .btn-secondary:hover {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
+  background-color: #333;
+  border-color: #333;
   transform: translateY(-1px);
 }
 
@@ -147,37 +158,39 @@ body {
 
 /* Forms */
 .form-control {
-  background-color: var(--hover-color);
+  background-color: var(--form-background);
   border-radius: 0.3rem;
   padding: 0.75rem;
-  border: 1px solid var(--secondary-color);
-  color: var(--text-color);
+  border: 1px solid var(--form-border);
+  color: white !important;
   transition: all 0.2s;
 }
 
 .form-control:focus {
-  border-color: var(--primary-color);
+  border-color: var(--form-focus);
   box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
   background-color: var(--card-background);
+  color: white !important;
 }
 
 .form-label {
   font-weight: 500;
-  color: var(--text-color);
+  color: var(--form-text);
 }
 
 .form-select {
-  background-color: var(--hover-color);
+  background-color: var(--form-background);
   border-radius: 0.3rem;
   padding: 0.75rem;
-  border: 1px solid var(--secondary-color);
-  color: var(--text-color);
+  border: 1px solid var(--form-border);
+  color: white !important;
 }
 
 .form-select:focus {
-  border-color: var(--primary-color);
+  border-color: var(--form-focus);
   box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
   background-color: var(--card-background);
+  color: white !important;
 }
 
 /* Cards */
